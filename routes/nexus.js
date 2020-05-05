@@ -1,12 +1,11 @@
-const express = require("express")
-const Nexus = require('nexushub-client')
-const nexus = new Nexus({
-  user_key,
-  user_secret
-})
-const res = await nexus.get('/foo') 
+// const express = require("express")
+// const Nexus = require('nexushub-client')
 
-const router = express.Router()
+
+// async function (request, response, next)
+// const res = await nexus.get('/foo') 
+
+// const router = express.Router()
 
 // const nexus = [{
 //     item: "black lotus"
@@ -14,8 +13,8 @@ const router = express.Router()
 //     item: "arcanite crystal"
 // }]
 
-router.get("/",(request, response) => {
-    response.json({res})
-})
+// router.get("/",(request, response) => {
+//     response.json({res})
+// })
 
-module.exports = router
+// module.exports = router
