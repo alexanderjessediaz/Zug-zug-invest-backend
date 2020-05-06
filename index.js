@@ -2,8 +2,11 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 const Nexus = require('nexushub-client');
-const nexus = new Nexus({});
+const blackLotus = require("./routes/BlackLotus.js")
+const mooncloth = require("./Routes/MoonCloth")
+const arcaniteBar = require("./Routes/ArcaniteBar")
 
+// CORS
 app.use(cors())
 
 app.get('/products/:id', function (req, res, next) {
@@ -14,10 +17,11 @@ app.listen(80, function () {
     console.log('CORS-enabled web server listening on port 80')
   })
 
-app.get("/", async function (req, res){
-    const data = await nexus.get("/wow-classic/v1/items/kromcrush-horde/13468")
-    res.send({data})
-})
+
+  // WoW Data
+app.use("/BlackLotus", blackLotus)
+app.use("/MoonCloth", mooncloth)
+app.use("/ArcaniteBar", arcaniteBar)
 
 var server = app.listen(9000, function () {
     var host = server.address().address
