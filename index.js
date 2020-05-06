@@ -1,33 +1,35 @@
-const Nexus = require('nexushub-client')
-// const app = express()
+const express = require("express");
+const app = express();
+const cors = require('cors');
+const Nexus = require('nexushub-client');
+const nexus = new Nexus({});
 
-const nexus = new Nexus({})
+app.use(cors())
 
+app.get('/products/:id', function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for all origins!'})
+  })
+   
+  app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+  })
 
-async function nexusAPICall() {
-    const res = await nexus.get('/foo')
-    console.log(res)
-}
+app.get("/", async function (req, res){
+    const data = await nexus.get("/wow-classic/v1/content")
+    res.send({data})
+})
 
+var server = app.listen(9000, function () {
+    var host = server.address().address
+    var port = server.address().port
+    
+    console.log("Example app listening at http://%s:%s", host, port)
 
-const PORT = process.env.PORT || 9000
-nexusAPICall()
-  
-// nexus.get("/", (request, response) => {
-//     response.json({message: "okay"})
-// })
+})
 
-// app.listen(PORT, () => {
-//     console.log(`Listening on port ${PORT}`)
-// })
+// async function currentWowCurrentContent() {
+//      const res = await nexus.get('/wow-classic/v1/content/active')
+//      console.log(res)
+// }
 
-// const express = require("express")
-// const nexus = require("./routes/nexus")
-
-
-// app.use("/nexus", nexus)
-
-
-
-
-
+// currentWowCurrentContent()

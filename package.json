@@ -21,6 +21,7 @@
     "mocha": "^7.1.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "nexushub-client": "^1.2.0"
   }
