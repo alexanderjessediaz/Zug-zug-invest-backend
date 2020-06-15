@@ -12,14 +12,6 @@ const bodyParser = require("body-parser")
 app.use(bodyParser.json())
 
 
-//PG
-const { Client } = require('pg')
-const client = new Client()
-await client.connect()
-const res = await client.query('SELECT $1::text as message', ['Hello world!'])
-console.log(res.rows[0].message) // Hello world!
-await client.end()
-
 // CORS
 app.use(cors())
 app.get("/products/:id", function (req, res, next) {
@@ -29,11 +21,16 @@ app.listen(80, function () {
   console.log("CORS-enabled web server listening on port 80")
 })
 
+const database = require("./database")
+
 
 const createUser = (req, res) => {
-  res.json({
-    user: "Added user"
-  })
+  database("user").select()
+    .then(users => {
+      res.json({
+        user:users
+      })
+    })
 }
 app.post("/users", createUser)
 
