@@ -9,22 +9,23 @@ const woolcloth = require("./Routes/WoolCloth")
 const bodyParser = require("body-parser")
 app.use(bodyParser.json())
 
-const createUser = (req, res) => {
-  response.json({
-    user: "Added user"
-  })
-}
-app.post("/users", createUser)
 
 // CORS
 app.use(cors())
 app.get("/products/:id", function (req, res, next) {
-    res.json({msg: "This is CORS-enabled for all origins!"})
-  })
+  res.json({msg: "This is CORS-enabled for all origins!"})
+})
 app.listen(80, function () {
-    console.log("CORS-enabled web server listening on port 80")
-  })
+  console.log("CORS-enabled web server listening on port 80")
+})
 
+
+const createUser = (req, res) => {
+  res.json({
+    user: "Added user"
+  })
+}
+app.post("/users", createUser)
   // WoW Data
 app.use("/BlackLotus", blackLotus)
 app.use("/MoonCloth", mooncloth)
