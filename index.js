@@ -6,9 +6,19 @@ const mooncloth = require("./Routes/MoonCloth")
 const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
 
+
+//Bodyparser
 const bodyParser = require("body-parser")
 app.use(bodyParser.json())
 
+
+//PG
+const { Client } = require('pg')
+const client = new Client()
+await client.connect()
+const res = await client.query('SELECT $1::text as message', ['Hello world!'])
+console.log(res.rows[0].message) // Hello world!
+await client.end()
 
 // CORS
 app.use(cors())
@@ -26,6 +36,8 @@ const createUser = (req, res) => {
   })
 }
 app.post("/users", createUser)
+
+
   // WoW Data
 app.use("/BlackLotus", blackLotus)
 app.use("/MoonCloth", mooncloth)
