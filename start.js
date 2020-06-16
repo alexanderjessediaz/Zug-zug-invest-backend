@@ -25,15 +25,27 @@ app.listen(80, function () {
 })
 
 const database = require("./database")
+const { returning } = require("./database")
 
 
 const createUser = (req, res) => {
   const { username, password} = req.body
 
-  console.log(username, password)
-
-  res.sendStatus(200)
+  bcrypt.hash(password, 12)
+    .then(hashedPassword => {
+     return database("user").insert({
+        username, password_digest: hashedPassword
+     }).returning("*")
+    }).then(users => {
+          res.json({user : users[0]})
+    })
 }
+
+  
+
+  
+
+
 app.post("/users", createUser)
 
 
