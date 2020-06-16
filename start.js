@@ -12,6 +12,9 @@ const bodyParser = require("body-parser")
 app.use(bodyParser.json())
 
 
+//bcrypt
+const bcrypt = require("bcrypt")
+
 // CORS
 app.use(cors())
 app.get("/products/:id", function (req, res, next) {
@@ -25,14 +28,11 @@ const database = require("./database")
 
 
 const createUser = (req, res) => {
-  database("user").select()
-    .then(users => {
-      res.json({
-        user:users
-      })
-    }).catch(function () {
-      console.log("promise rejected")
-    })
+  const { username, password} = req.body
+
+  console.log(username, password)
+
+  res.sendStatus(200)
 }
 app.post("/users", createUser)
 
