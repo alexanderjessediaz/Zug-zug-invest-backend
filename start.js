@@ -30,6 +30,8 @@ const createUser = (req, res) => {
       res.json({
         user:users
       })
+    }).catch(function () {
+      console.log("promise rejected")
     })
 }
 app.post("/users", createUser)
@@ -41,9 +43,6 @@ app.use("/MoonCloth", mooncloth)
 app.use("/ArcaniteBar", arcaniteBar)
 app.use("/WoolCloth", woolcloth)
 
-var server = app.listen(9000, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Example app listening at http://%s:%s", host, port)
-})
+const PORT = process.env.PORT || 9000
+app.listen(PORT, () => console.log(`Listening on ...${PORT}`))
 

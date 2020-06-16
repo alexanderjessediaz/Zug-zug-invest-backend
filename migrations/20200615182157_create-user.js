@@ -5,9 +5,8 @@ exports.up = function(knex) {
         table.string("username")
         table.string("password_digest")
     })
-  
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("")
+    return knex.schema.dropTableIfExists("user")
 };
