@@ -6,6 +6,9 @@ const mooncloth = require("./Routes/MoonCloth")
 const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
 
+//jwt
+const jwt = require("jsonwebtoken")
+
 
 //Bodyparser
 const bodyParser = require("body-parser")
@@ -25,7 +28,7 @@ app.listen(80, function () {
 })
 
 const database = require("./database")
-const { returning } = require("./database")
+// const { returning } = require("./database")
 
 
 const createUser = (req, res) => {
@@ -43,11 +46,36 @@ const createUser = (req, res) => {
 
   
 
-  
-
-
 app.post("/users", createUser)
 
+const login = (req, res) => {
+  const { username, password} = req.body
+
+  // look up user
+  database("user").select().where({username}).first()
+    .then(user => {
+      if (!user) throw new Error("no user by that name")
+
+      // auth password
+      return bcrypt.compare(user.password_digest, password)
+        .then(passwordDidMatch => {
+          if (!passwordDidMatch) throw new Error("Incorrect username or password")
+          return user
+        })
+      }).then(user => {
+        //generate token
+        const secret = "token"
+        jwt.sign(user, secret, (token) => {
+          res.json({ token })
+        })
+      }).catch(error => {
+      res.status(401).json({
+        error: error.message
+      })
+    })
+}
+
+app.post("/login", login)
 
   // WoW Data
 app.use("/BlackLotus", blackLotus)
