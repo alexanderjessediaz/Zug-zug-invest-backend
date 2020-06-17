@@ -57,7 +57,7 @@ const login = (req, res) => {
       if (!user) throw new Error("no user by that name")
 
       // auth password
-      return bcrypt.compare(user.password_digest, password)
+      return bcrypt.compare(password, user.password_digest)
         .then(passwordDidMatch => {
           if (!passwordDidMatch) throw new Error("Incorrect username or password")
           return user
@@ -65,7 +65,9 @@ const login = (req, res) => {
       }).then(user => {
         //generate token
         const secret = "token"
-        jwt.sign(user, secret, (token) => {
+        jwt.sign(user, secret, (error, token) => {
+          if (error) throw new Error("problem signing jwt")
+          // return token to user
           res.json({ token })
         })
       }).catch(error => {
