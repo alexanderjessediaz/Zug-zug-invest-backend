@@ -48,6 +48,8 @@ const createUser = (req, res) => {
 
 app.post("/users", createUser)
 
+
+
 const login = (req, res) => {
   const { username, password} = req.body
 
@@ -77,7 +79,36 @@ const login = (req, res) => {
     })
 }
 
+const { getUser, } = require("./data")
+
+function authenticateUser(req, res, next){
+  if(!req.headers.authorization){
+    return res.status(401).json({error: "Unauthorized"})
+  }
+  const token = req.headers.authorization.split("")[1]
+  jwt.verify(token, process.env.SECRET_KEY, (error, token) => {
+    if (error) throw new Error("Invalid token")
+    getUser(token.username).then(user => {
+      if (user){
+        req.user = user
+        next(null)
+      } else{
+        next({
+          error: "User doesn't match"
+        })
+      }
+    }).catch(error => {
+      console.error(error.message)
+      next({
+        error: "problem authenticating user"
+      })
+    })
+  }
+  )}
+
 app.post("/login", login)
+app.get("/users/:username", authenticateUser)
+app.post("/users", authenticateUser)
 
   // WoW Data
 app.use("/BlackLotus", blackLotus)
