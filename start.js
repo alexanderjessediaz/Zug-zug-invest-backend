@@ -79,7 +79,7 @@ const login = (req, res) => {
     })
 }
 
-const { getUser, } = require("./data")
+// const { getUser, } = require("./data")
 
 function authenticateUser(req, res, next){
   if(!req.headers.authorization){
