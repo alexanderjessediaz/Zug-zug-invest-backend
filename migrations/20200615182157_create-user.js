@@ -4,7 +4,8 @@ exports.up = function(knex) {
         table.increments()
         table.string("username")
         table.string("password_digest")
-        table.timestamps()
+        table.boolean("admin").notNullable().defaultTo(false)
+        table.timestamps("created_at").notNullable().defaultTo(knex.raw("now()"))
     })
 };
 
