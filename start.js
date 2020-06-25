@@ -1,10 +1,10 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
-const blackLotus = require("./Routes/BlackLotus")
-const mooncloth = require("./Routes/MoonCloth")
-const arcaniteBar = require("./Routes/ArcaniteBar")
-const woolcloth = require("./Routes/WoolCloth")
+const blackLotus = require("./app/routes/BlackLotus")
+const mooncloth = require("./app/routes/MoonCloth")
+const arcaniteBar = require("./app/routes/ArcaniteBar")
+const woolcloth = require("./app/routes/WoolCloth")
 
 //jwt
 const jwt = require("jsonwebtoken")
@@ -13,6 +13,7 @@ const jwt = require("jsonwebtoken")
 //Bodyparser
 const bodyParser = require("body-parser")
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 //bcrypt
