@@ -1,0 +1,41 @@
+{
+  "name": "nexus-hub-project-backend",
+  "version": "0.0.1",
+  "description": "backend for react project",
+  "main": "start.js",
+  "scripts": {
+    "start": "nodemon start.js",
+    "test": "mocha"
+  },
+  "keywords": [
+    "node.js",
+    "jwt",
+    "authentication",
+    "express",
+    "mysql"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexanderjessediaz/black-lotus-backend.git"
+  },
+  "author": "AJ Diaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexanderjessediaz/black-lotus-backend/issues"
+  },
+  "homepage": "https://github.com/alexanderjessediaz/black-lotus-backend#readme",
+  "devDependencies": {
+    "mocha": "^7.1.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "core-util-is": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "nexushub-client": "^1.2.0",
+    "nodemon": "^2.0.4",
+    "pg": "^8.2.1"
+  }
+}
