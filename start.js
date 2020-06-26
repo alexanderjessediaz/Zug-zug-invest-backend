@@ -48,7 +48,7 @@ const createUser = (req, res) => {
 
   
 
-app.post("/users", createUser)
+
 
 
 
