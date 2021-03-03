@@ -7,14 +7,16 @@ const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
 
 const bodyParser = require("body-parser")
+const PORT = process.env.PORT || 9000
 app.use(bodyParser.json())
 
-const createUser = (req, res) => {
-  response.json({
-    user: "Added user"
-  })
-}
-app.post("/users", createUser)
+// const createUser = (req, res) => {
+//   response.json({
+//     user: "Added user"
+//   })
+// }
+// app.post("/users", createUser)
+app.set("port", PORT)
 
 // CORS
 app.use(cors())
