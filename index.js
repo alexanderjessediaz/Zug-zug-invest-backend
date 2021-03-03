@@ -13,7 +13,7 @@ const app = express()
 // connect to mongodb
 const dbURI = "mongodb+srv://user-1:zugzug!&@cluster0.gwwmq.mongodb.net/Cluster0?retryWrites=true&w=majority"
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology:true})
-  .then((result)=> app.listen(PORT))
+  .then((result)=> app.listen(9999))
   .catch((err)=> console.log(err));
 
   app.get('/add-user', (req,res)=> {
@@ -33,17 +33,21 @@ mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology:true})
 
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 9000
+
 app.use(bodyParser.json())
 
 // CORS
 app.use(cors())
-// app.get("/products/:id", function (req, res, next) {
-//   res.json({msg: "This is CORS-enabled for all origins!"})
-// })
+app.get("/products/:id", function (req, res, next) {
+  res.json({msg: "This is CORS-enabled for all origins!"})
+})
 // app.listen(80, function () {
 //   console.log("CORS-enabled web server listening on port 80")
 // })
 
+app.listen(PORT, () => {
+  console.log(`Server is up on port ${PORT}`);
+  });
 // WoW Data
 app.use("/BlackLotus", blackLotus)
 app.use("/MoonCloth", mooncloth)
