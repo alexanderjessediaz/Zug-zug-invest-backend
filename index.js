@@ -5,6 +5,7 @@ const mooncloth = require("./Routes/MoonCloth")
 const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
 const mongoose = require('mongoose')
+const User = require('./models/user');
 const app = express()
 
 // connect to mongodb
@@ -12,6 +13,19 @@ const dbURI = "mongodb+srv://user-1:zugzug!&@cluster0.gwwmq.mongodb.net/Cluster0
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology:true})
   .then((result)=> app.listen(PORT))
   .catch((err)=> console.log(err));
+
+  app.get('/add-user', (req,res)=> {
+    const user = new User({
+      username: 'user1'
+    });
+    user.save()
+      .then((result)=> {
+        res,send(result)
+      })
+      .catch((err)=> {
+        console.log(err)
+      });
+  })
 
 
 
@@ -42,9 +56,9 @@ app.use("/MoonCloth", mooncloth)
 app.use("/ArcaniteBar", arcaniteBar)
 app.use("/WoolCloth", woolcloth)
 
-// var server = app.listen(PORT, function () {
-//     var host = server.address().address
-//     var port = server.address().port
-//     console.log("Example app listening at http://%s:%s", host, port)
-// })
+var server = app.listen(PORT, function () {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Example app listening at http://%s:%s", host, port)
+})
 
