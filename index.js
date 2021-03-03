@@ -31,7 +31,7 @@ app.use("/MoonCloth", mooncloth)
 app.use("/ArcaniteBar", arcaniteBar)
 app.use("/WoolCloth", woolcloth)
 
-var server = app.listen(9000, function () {
+var server = app.listen(process.env.PORT || 9000, function () {
     var host = server.address().address
     var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
