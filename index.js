@@ -39,26 +39,26 @@ app.use(bodyParser.json())
 //   })
 // }
 // app.post("/users", createUser)
-app.set("port", PORT)
 
 // CORS
 app.use(cors())
 app.get("/products/:id", function (req, res, next) {
-    res.json({msg: "This is CORS-enabled for all origins!"})
-  })
+  res.json({msg: "This is CORS-enabled for all origins!"})
+})
 app.listen(80, function () {
-    console.log("CORS-enabled web server listening on port 80")
-  })
+  console.log("CORS-enabled web server listening on port 80")
+})
 
-  // WoW Data
+// WoW Data
 app.use("/BlackLotus", blackLotus)
 app.use("/MoonCloth", mooncloth)
 app.use("/ArcaniteBar", arcaniteBar)
 app.use("/WoolCloth", woolcloth)
 
+app.set("port", PORT)
 var server = app.listen(PORT, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Example app listening at http://%s:%s", host, port)
+  var host = server.address().address
+  var port = server.address().port
+  console.log("Example app listening at http://%s:%s", host, port)
 })
 
