@@ -1,10 +1,19 @@
 const express = require("express")
-const app = express()
 const cors = require("cors")
 const blackLotus = require("./Routes/BlackLotus")
 const mooncloth = require("./Routes/MoonCloth")
 const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
+const mongoose = require('mongoose')
+const app = express()
+
+// connect to mongodb
+const dbURI = "mongodb+srv://user-1:zugzug!&@cluster0.gwwmq.mongodb.net/Cluster0?retryWrites=true&w=majority"
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology:true})
+  .then((result)=> app.listen(PORT))
+  .catch((err)=> console.log(err));
+
+
 
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 9000
