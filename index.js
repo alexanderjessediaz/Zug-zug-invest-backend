@@ -41,9 +41,9 @@ app.use(cors())
 app.get("/products/:id", function (req, res, next) {
   res.json({msg: "This is CORS-enabled for all origins!"})
 })
-// app.listen(80, function () {
-//   console.log("CORS-enabled web server listening on port 80")
-// })
+app.listen(80, function () {
+  console.log("CORS-enabled web server listening on port 80")
+})
 
 app.listen(PORT, () => {
   console.log(`Server is up on port ${PORT}`);
@@ -55,9 +55,9 @@ app.use("/ArcaniteBar", arcaniteBar)
 app.use("/WoolCloth", woolcloth)
 
 app.set("port", PORT)
-// var server = app.listen(PORT, function () {
-//   var host = server.address().address
-//   var port = server.address().port
-//   console.log("Example app listening at http://%s:%s", host, port)
-// })
+var server = app.listen(PORT, function () {
+  var host = server.address().address
+  var port = server.address().port
+  console.log("Example app listening at http://%s:%s", host, port)
+})
 
