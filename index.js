@@ -5,6 +5,10 @@ const mooncloth = require("./Routes/MoonCloth")
 const arcaniteBar = require("./Routes/ArcaniteBar")
 const woolcloth = require("./Routes/WoolCloth")
 const app = express()
+var StatsD = require('hot-shots')
+var dogstatsd = new StatsD()
+
+dogstatsd.increment('page.views')
 app.use(cors())
 
 const PORT = 5555
