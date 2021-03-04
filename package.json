@@ -4,7 +4,7 @@
   "description": "backend for react project",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "mocha"
   },
   "repository": {
@@ -28,6 +28,6 @@
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.18",
     "nexushub-client": "^1.2.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.7"
   }
 }
