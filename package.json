@@ -21,10 +21,7 @@
     "mocha": "^7.1.2"
   },
   "dependencies": {
-    "connect-datadog": "0.0.9",
     "cors": "^2.8.5",
-    "dd-trace": "^0.31.0",
-    "docker": "^1.0.0",
     "express": "^4.17.1",
     "hot-shots": "^8.3.0",
     "mongodb": "^3.6.4",
