@@ -1,6 +1,6 @@
-const express = require("express")
+import express from 'express';
 const router = express.Router()
-const Nexus = require('nexushub-client')
+import Nexus from 'nexushub-client'
 const nexus = new Nexus({})
 
 router.get("/", async function (req, res) {
@@ -9,4 +9,5 @@ router.get("/", async function (req, res) {
     res.send({data, BLPriceData})
 })
 
-module.exports = router
+// module.exports = router
+export default router

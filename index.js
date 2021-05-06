@@ -3,13 +3,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import userRoutes from './Routes/Users.js/index.js'
+import userRoutes from './Routes/Users.js'
 
 // routes
-import blackLotus from './Routes/BlackLotus';
+import blackLotus from './Routes/BlackLotus.js';
 import mooncloth from './Routes/MoonCloth.js';
-import arcaniteBar from './Routes/ArcaniteBar';
-import woolcloth from './Routes/WoolCloth';
+import arcaniteBar from './Routes/ArcaniteBar.js';
+import woolcloth from './Routes/WoolCloth.js';
 
 
 const app = express();
@@ -47,9 +47,5 @@ app.listen(80, function () {
 })
 
 
-var server = app.listen(PORT, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log("Example app listening at http://%s:%s", host, port)
-})
+
 
