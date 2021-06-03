@@ -4,8 +4,8 @@ import Nexus from 'nexushub-client'
 const nexus = new Nexus({})
 
 router.get("/", async function (req, res) {
-    const data = await nexus.get("/wow-classic/v1/items/kromcrush-horde/12360")
-    res.send({data})
+    const serverNames = await nexus.get("/wow-classic/v1/servers/full")
+    res.send({serverNames})
 })
 
 export default router
