@@ -9,4 +9,9 @@
 //     res.send({data, BLPriceData})
 // })
 
+// const dataQuery = await nexus.get(`/wow-classic/v1/items/${selectedServer}-${selectedFaction}/13468`)
+//         const priceQuery = await nexus.get(`/wow-classic/v1/items/${selectedServer}-${selectedFaction}/13468/prices`)
+
+// res.send({dataQuery, priceQuery})
+
 // export default router
