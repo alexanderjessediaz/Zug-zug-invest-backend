@@ -5,15 +5,14 @@ const nexus = new Nexus({})
 // import { getFactionQuery, getServerQuery } from '../Controllers/QueryController.js'
 
 router.all("/", async (req, res) => {  
-    const selectedServer = req.body.sQuery
-    const selectedFaction = req.body.fQuery
-    console.log(selectedServer)
-    console.log(selectedFaction)
-    if( !selectedServer || !selectedFaction) {
+    const nexusQuery = req.body.nQuery
+    
+    if( !nexusQuery) {
+        res.status(400)
         return null
     } else {
-    const data = await nexus.get(`/wow-classic/v1/items/${selectedServer}-${selectedFaction}/13468`)
-    res.send({ data})
+    const data = await nexus.get(`/wow-classic/v1/items/${nexusQuery}/13468`)
+    res.send({data})
     }
   })
 
