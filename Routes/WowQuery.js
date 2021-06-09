@@ -7,11 +7,11 @@ const nexus = new Nexus({})
 router.all("/", async (req, res) => {  
     const nexusQuery = req.body.nQuery
     
-    if( !nexusQuery) {
+    if(!nexusQuery) {
         res.status(400)
         return null
     } else {
-    const data = await nexus.get(`/wow-classic/v1/items/${nexusQuery}/13468`)
+    const data = await nexus.get(`${nexusQuery}`)
     res.send({data})
     }
   })
