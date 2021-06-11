@@ -11,8 +11,9 @@ const CLIENTBASEURL = "http://localhost:3001"
 // import blackLotus from './Routes/BlackLotus.js';
 import servers from './Routes/Servers.js';
 import wowQuery from './Routes/WowQuery.js';
-// import factionQuery from './Routes/FactionQuery.js';
-// import serverQuery from './Routes/ServerQuery.js';
+
+
+
 
 
 const app = express();
@@ -23,25 +24,38 @@ app.use(express.urlencoded({limit: "20mb", extended: true}));
 app.use(cors())
 
 
+
 app.use("/Servers", servers)
 // app.use("/BlackLotus", blackLotus)
-app.use("/WowQuery", wowQuery)
-// app.use("/FactionQuery", factionQuery)
+// app.use("/WowQuery", wowQuery)
 
+app.post("/", async (req, res, next) => {  
+  const nexusQuery = req.body.nQuery
+  if(!nexusQuery) {
+      console.log("POST: no Query") 
+      res.status(400)
+      
+  } else {
+    app.set('clientQuery', nexusQuery)
+    // app.get(nexusQuery)
+    console.log("query string:" ,app.settings.clientQuery)
+    next()
+  }
+})
 
-// app.use("/ServerQuery", serverQuery)
-
-// app.post("/", (req, res) => {
-  
-//   const selectedFaction = req.body.fQuery
-//   app.set("selectedFaction" ,selectedFaction)
-// })
-
-// app.get("/", async function (req, res) {
-//   const nexusQuery = await nexus.get(`/wow-classic/v1/items/${selectedServer}-${selectedFaction}/13468/prices`);
-//   res.send({nexusQuery});
-// })
-
+console.log("query string set in app:", app.settings.clientQuery)
+app.get('/', async(req,res) => {
+  if(app.settings.clientQuery === undefined) {
+    console.log("GET: no Query") 
+    // res.status(400)
+    
+} else {
+  console.log("nexusQuery:", app.settings.clientQuery)
+  const data = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
+  res.send({data})
+  console.log(data)
+  }
+})
 
 
 

@@ -4,17 +4,13 @@ import Nexus from 'nexushub-client'
 const nexus = new Nexus({})
 
 
-router.all("/", async (req, res) => {  
-    const nexusQuery = req.body.nQuery
-    
-    if(!nexusQuery) {
-        res.status(400)
-        return null
-    } else {
-    const data = await nexus.get(`${nexusQuery}`)
+
+router.get('/', async(req,res) => {
+    const data = await nexus.get(`${nexusQuery}`).catch((error) => console.error(error))
     res.send({data})
-    }
-  })
+    console.log(data)
+    
+})
 
  
 export default router
