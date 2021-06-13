@@ -29,31 +29,41 @@ app.use("/Servers", servers)
 // app.use("/BlackLotus", blackLotus)
 // app.use("/WowQuery", wowQuery)
 
-app.post("/", async (req, res, next) => {  
+app.post("/", async (req, res) => {  
   const nexusQuery = req.body.nQuery
   if(!nexusQuery) {
       console.log("POST: no Query") 
-      res.status(400)
+      res.status(400).send('bad request')
       
   } else {
     app.set('clientQuery', nexusQuery)
+    res.status(200).send(`${nexusQuery}: recieved and set`)
+    console.log("Current Client Query:" ,app.settings.clientQuery)
     // app.get(nexusQuery)
-    console.log("query string:" ,app.settings.clientQuery)
-    next()
+    
   }
 })
 
-console.log("query string set in app:", app.settings.clientQuery)
+
 app.get('/', async(req,res) => {
   if(app.settings.clientQuery === undefined) {
-    console.log("GET: no Query") 
-    // res.status(400)
+    console.log("GET: no Query", req.body)
+    try {
+      app.get(app.settings.clientQuery)
+    } catch(error) {
+      console.error(error)
+    }
     
 } else {
-  console.log("nexusQuery:", app.settings.clientQuery)
-  const data = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
-  res.send({data})
-  console.log(data)
+    try {
+      app.get(app.settings.clientQuery)
+    } 
+    catch(error) {
+      console.error(error)
+    }
+      console.log("nexusQuery:", app.settings.clientQuery)
+      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
+      res.send({nData})
   }
 })
 
