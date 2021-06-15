@@ -10,7 +10,7 @@ const CLIENTBASEURL = "http://localhost:3001"
 // routes
 // import blackLotus from './Routes/BlackLotus.js';
 import servers from './Routes/Servers.js';
-import wowQuery from './Routes/WowQuery.js';
+import wowQuery from './Routes/ItemSearch.js';
 
 
 
@@ -26,23 +26,25 @@ app.use(cors())
 
 
 app.use("/Servers", servers)
-// app.use("/BlackLotus", blackLotus)
-// app.use("/WowQuery", wowQuery)
+// app.use("/ItemSearch", wowQuery)
 
 app.post("/", async (req, res) => {  
-  const nexusQuery = req.body.nQuery
-  if(!nexusQuery) {
+  const regionQuery = req.body.nQuery
+  const itemQuery = req.body.userSearchInput
+  app.set('itemQuery', itemQuery)
+  if(!regionQuery) {
       console.log("POST: no Query") 
       res.status(400).send('bad request')
       
   } else {
-    app.set('clientQuery', nexusQuery)
-    res.status(200).send(`${nexusQuery}: recieved and set`)
+    app.set('clientQuery', regionQuery)
+    res.status(200).send(`${regionQuery} and ${itemQuery}: recieved and set`)
     console.log("Current Client Query:" ,app.settings.clientQuery)
-    // app.get(nexusQuery)
     
   }
 })
+
+
 
 
 app.get('/', async(req,res) => {
@@ -56,16 +58,22 @@ app.get('/', async(req,res) => {
     
 } else {
     try {
+      app.get(app.settings.itemQuery)
+      console.log('itemQuery:', app.settings.itemQuery, "reqBody:",req.body)
+      const nSearchResults = await nexus.get(`/wow-classic/v1/search/suggestions?query=${app.settings.itemQuery}`).catch((error) => console.error(error))
       app.get(app.settings.clientQuery)
+      console.log("nexusQuery:", app.settings.clientQuery)
+      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
+      res.status(200).send({nData, nSearchResults})
     } 
     catch(error) {
       console.error(error)
     }
-      console.log("nexusQuery:", app.settings.clientQuery)
-      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
-      res.send({nData})
   }
 })
+
+
+
 
 
 
