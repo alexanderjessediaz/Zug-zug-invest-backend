@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', getNexusServers)
+router.get('/', getNexusServers, createUserRegionSelection)
 // router.post('/', )
 
 export default router

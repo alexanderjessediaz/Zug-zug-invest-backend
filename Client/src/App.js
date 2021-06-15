@@ -24,23 +24,23 @@ const App = () => {
     setNexusQuery(`/wow-classic/v1/items/${serverQueryString.split(" ").join("-")}-${factionQueryString}/13468/prices`)
   }
   
-  // useEffect(() => {
-  //     if(nexusQuery === ""){
-  //         console.log("client query post: nexusQuery is empty")
-  //         return
-  //     } else { 
-  //       async function postNexusQuery(){
-  //         try {
-  //         console.log( "client query string posted:", nexusQuery)
-  //         axios.post("http://localhost:5555/", {
-  //             nQuery: nexusQuery 
-  //         })
-  //         } catch (error) {
-  //             console.error("Error:", error)
-  //         }}
-  //         postNexusQuery() 
-  //     }
-  // }, [nexusQuery])
+  useEffect(() => {
+      if(nexusQuery === ""){
+          console.log("client query post: nexusQuery is empty")
+          return
+      } else { 
+        async function postNexusQuery(){
+          try {
+          console.log( "client query string posted:", nexusQuery)
+          axios.post("http://localhost:5555/NexusQueries", {
+              nQuery: nexusQuery 
+          })
+          } catch (error) {
+              console.error("Error:", error)
+          }}
+          postNexusQuery() 
+      }
+  }, [nexusQuery])
 
 
 
@@ -79,7 +79,6 @@ const App = () => {
           />
         </div>
     )
-
   }
 
 export default App
