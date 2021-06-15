@@ -2,18 +2,10 @@
 import express from 'express';
 import cors from 'cors';
 import Nexus from 'nexushub-client'
-
 const nexus = new Nexus({})
-const CLIENTBASEURL = "http://localhost:3001"
 
-
-// routes
-// import blackLotus from './Routes/BlackLotus.js';
 import servers from './Routes/Servers.js';
-import wowQuery from './Routes/WowQuery.js';
-
-
-
+import nexusQueries from './Routes/NexusQueries.js';
 
 
 const app = express();
@@ -26,47 +18,38 @@ app.use(cors())
 
 
 app.use("/Servers", servers)
-// app.use("/BlackLotus", blackLotus)
-// app.use("/WowQuery", wowQuery)
+app.use("/NexusQueries", nexusQueries)
 
 app.post("/", async (req, res) => {  
-  const nexusQuery = req.body.nQuery
-  if(!nexusQuery) {
-      console.log("POST: no Query") 
-      res.status(400).send('bad request')
-      
+  const regionQuery = req.body.nQuery
+  
+  if(!regionQuery) {
+      res.status(400).send('bad request')      
   } else {
-    app.set('clientQuery', nexusQuery)
-    res.status(200).send(`${nexusQuery}: recieved and set`)
-    console.log("Current Client Query:" ,app.settings.clientQuery)
-    // app.get(nexusQuery)
-    
+    app.set('clientQuery', regionQuery)
+    res.status(200).send(`${regionQuery}: recieved and set`)
   }
 })
 
 
 app.get('/', async(req,res) => {
   if(app.settings.clientQuery === undefined) {
-    console.log("GET: no Query", req.body)
     try {
       app.get(app.settings.clientQuery)
     } catch(error) {
       console.error(error)
     }
-    
 } else {
     try {
       app.get(app.settings.clientQuery)
+      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
+      res.status(200).send({nData})
     } 
     catch(error) {
       console.error(error)
     }
-      console.log("nexusQuery:", app.settings.clientQuery)
-      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error))
-      res.send({nData})
   }
 })
-
 
 
 const PORT = process.env.PORT || 5555
