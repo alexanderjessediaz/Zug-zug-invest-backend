@@ -5,8 +5,8 @@ import Nexus from 'nexushub-client';
 
 const nexus = new Nexus({});
 
-
 import servers from './Routes/Servers.js';
+import itemPrice from './Routes/ItemPrice.js'
 
 const app = express();
 
@@ -15,44 +15,43 @@ app.use(express.urlencoded({limit: "20mb", extended: true}));
 
 app.use(cors());
 
-
-
 app.use("/Servers", servers);
+app.use("/ItemPrice", itemPrice)
 
-
-app.post("/", async (req, res) => {  
-  const nexusQuery = req.body.nQuery;
-  if(!nexusQuery) {
-      console.log("POST: no Query");
-      res.status(400).send('bad request')
+// app.post("/", async (req, res) => {  
+//   const nexusQuery = req.body.nQuery;
+//   if(!nexusQuery) {
+//       console.log("POST: no Query");
+//       res.status(400).send('bad request')
       
-  } else {
-    app.set('clientQuery', nexusQuery);
-    res.status(200).send(`${nexusQuery}: recieved and set`);
-    console.log("Current Client Query:" ,app.settings.clientQuery);
-  }
-});
+//   } else {
+//     app.set('clientQuery', nexusQuery);
+//     res.status(200).send(`${nexusQuery}: recieved and set`);
+//     console.log("Current Client Query:" , app.settings.clientQuery);
+//   }
+// });
 
-app.get('/', async(req,res) => {
-  if(app.settings.clientQuery === undefined) {
-    console.log("GET: no Query", req.body);
-    try {
-      app.get(app.settings.clientQuery);
-    } catch(error) {
-      console.error(error);
-    }
-} else {
-    try {
-      app.get(app.settings.clientQuery);
-    } 
-    catch(error) {
-      console.error(error);
-    }
-      console.log("nexusQuery:", app.settings.clientQuery);
-      const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error));
-      res.send({nData});
-  }
-});
+
+// app.get('/', async(req,res) => {
+  // if(app.settings.clientQuery === undefined) {
+  //   // console.log("GET: no Query", req.body);
+  //   try {
+     
+//       app.get(app.settings.clientQuery);
+//     } catch(error) {
+//       console.error(error);
+//     }
+// } else {
+//     try {
+//       app.get(app.settings.clientQuery);
+//     } 
+//     catch(error) {
+//       console.error(error);
+//     }
+//       const nData = await nexus.get(app.settings.clientQuery).catch((error) => console.error(error));
+//       res.send({nData});
+//   }
+// });
 
 
 
