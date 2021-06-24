@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npm start index.js",
+    "build": "",
     "test": "mocha"
   },
   "repository": {
