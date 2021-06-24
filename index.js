@@ -1,9 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-
 import servers from './Routes/Servers.js';
 import itemPrice from './Routes/ItemPrice.js';
-import itemSearch from './Routes/ItemSearch.js'
+import itemSearch from './Routes/ItemSearch.js';
 
 
 const app = express();
@@ -12,6 +11,7 @@ app.use(express.json({limit: "20mb", extended: true}));
 app.use(express.urlencoded({limit: "20mb", extended: true}));
 
 app.use(cors());
+
 
 app.use("/Servers", servers);
 app.use("/ItemPrice", itemPrice)

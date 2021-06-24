@@ -6,7 +6,8 @@ const nexus = new Nexus({});
 router.get('/', async function (req,res) {
     const userServer = req.query.server;
     const userFaction = req.query.faction;
-    const priceQuery = `/wow-classic/v1/items/${userServer}-${userFaction}/21884/prices`;
+    const userItem = req.query.item;
+    const priceQuery = `/wow-classic/v1/items/${userServer}-${userFaction}/${userItem}/prices`;
     try {
         res.status(200).send(await nexus.get(priceQuery));
     } catch (error) {

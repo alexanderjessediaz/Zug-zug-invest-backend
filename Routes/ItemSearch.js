@@ -6,7 +6,6 @@ const nexus = new Nexus({});
 router.get('/', async function (req,res) {
     const userItemQuery = req.query.itemSearch
     const searchQuery = `/wow-classic/v1/search?query=${userItemQuery}`;
-    console.log(userItemQuery)
     try {
         res.status(200).send(await nexus.get(searchQuery));
     } catch (error) {
