@@ -3,6 +3,7 @@ import cors from 'cors';
 import servers from './Routes/Servers.js';
 import itemPrice from './Routes/ItemPrice.js';
 import itemSearch from './Routes/ItemSearch.js';
+import newsQuery from './Routes/News.js'
 
 const app = express();
 
@@ -13,9 +14,9 @@ app.use(cors());
 
 
 app.use("/Servers", servers);
-app.use("/ItemPrice", itemPrice)
-app.use("/ItemSearch", itemSearch)
-
+app.use("/ItemPrice", itemPrice);
+app.use("/ItemSearch", itemSearch);
+app.use("/News", newsQuery);
 
 
 const PORT = process.env.PORT || 5555;
@@ -28,6 +29,6 @@ const server = app.listen(PORT, () => {
 app.get("/products/:id", function (req, res, next) {
   res.json({msg: "This is CORS-enabled for all origins!"})
 });
-app.listen(8000, function () {
-  console.log("CORS-enabled web server listening on port 8000")
+app.listen(PORT, function () {
+  console.log(`CORS-enabled web server listening on port ${PORT}`)
 });
