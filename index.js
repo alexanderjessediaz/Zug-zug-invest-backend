@@ -3,7 +3,7 @@ import cors from 'cors';
 import servers from './Routes/Servers.js';
 import itemPrice from './Routes/ItemPrice.js';
 import itemSearch from './Routes/ItemSearch.js';
-// import newsQuery from './Routes/News.js';
+import newsQuery from './Routes/News.js';
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use("/Servers", servers);
 app.use("/ItemPrice", itemPrice);
 app.use("/ItemSearch", itemSearch);
-
+app.use("/News", newsQuery);
 
 
 const PORT = process.env.PORT || 5555;
